@@ -85,9 +85,9 @@ if option == "Welcome Page":
 elif option == "Transaction Dynamics":
     df = analysis.get_transaction_dynamics(engine, year, quarter)
     df['state'] = df['state'].map({
-    "andaman-&-nicobar-islands": "andaman-&-nicobar-islands",
-    "andhra-pradesh": "andhra-pradesh",
-    "arunachal-pradesh": "arunachal-pradesh",
+    "andaman-&-nicobar-islands": "Andaman & Nicobar",
+    "andhra-pradesh": "Andhra Pradesh",
+    "arunachal-pradesh": "Arunachal Pradesh",
     "assam": "Assam",
     "bihar": "Bihar",
     "chandigarh": "Chandigarh",
@@ -119,7 +119,8 @@ elif option == "Transaction Dynamics":
     "tripura": "Tripura",
     "uttarakhand": "Uttarakhand",
     "uttar-pradesh": "Uttar Pradesh",
-    "west-bengal": "West Bengal"
+    "west-bengal": "West Bengal",
+    "lakshadeep": "Lakshadweep"
     })
     df['state'] = df['state'].str.strip().str.title()
     if df.empty:
