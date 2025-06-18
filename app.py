@@ -120,7 +120,7 @@ elif option == "Transaction Dynamics":
     "uttarakhand": "Uttarakhand",
     "uttar-pradesh": "Uttar Pradesh",
     "west-bengal": "West Bengal",
-    "lakshadeep": "Lakshadweep"
+    "lakshadweep": "Lakshadweep"
     })
     df['state'] = df['state'].str.strip().str.title()
     if df.empty:
@@ -178,10 +178,9 @@ elif option == "User Engagement Growth":
 elif option == "Insurance Penetration":
     df = analysis.get_insurance_penetration(engine, year, quarter)
     df['state'] = df['state'].map({
-    "Andaman-&-Nicobar-Islands": "Andaman & Nicobar",
-    "Andhra-Pradesh": "Andhra Pradesh",
-    "Arunachal-Pradesh": "Arunachal Pradesh",
-    "assam": "Assam",
+    "andaman-&-nicobar-islands": "Andaman & Nicobar",
+    "andhra-pradesh": "Andhra Pradesh",
+    "arunachal-pradesh": "Arunachal Pradesh",
     "bihar": "Bihar",
     "chandigarh": "Chandigarh",
     "chhattisgarh": "Chhattisgarh",
@@ -212,7 +211,8 @@ elif option == "Insurance Penetration":
     "tripura": "Tripura",
     "uttarakhand": "Uttarakhand",
     "uttar-pradesh": "Uttar Pradesh",
-    "west-bengal": "West Bengal"
+    "west-bengal": "West Bengal",
+    "lakshadweep": "Lakshadweep"
     })
     df['state'] = df['state'].str.strip().str.title()
     
