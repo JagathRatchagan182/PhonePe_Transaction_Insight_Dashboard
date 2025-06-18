@@ -1,9 +1,0 @@
-Requirements
-streamlit
-pandas
-sqlalchemy
-psycopg2-binary
-plotly
-
-!pip install streamlit, pandas, sqlalchemy, psycopg2-binary, plotly
-
