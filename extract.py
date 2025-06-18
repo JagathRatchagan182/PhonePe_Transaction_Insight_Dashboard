@@ -22,7 +22,10 @@ def extract_aggregated_transaction():
                                 'count': tx['paymentInstruments'][0]['count'],
                                 'amount': tx['paymentInstruments'][0]['amount']
                             })
-    pd.DataFrame(data).to_csv("aggregated_transaction.csv", index=False)
+    df = pd.DataFrame(data)
+    df.to_csv("aggregated_transaction.csv", index=False)
+    print(f"✅ aggregated_transaction.csv generated with {len(df)} rows.")
+
 
 def extract_aggregated_user():
     data = []
@@ -43,7 +46,10 @@ def extract_aggregated_user():
                                 'count': user['count'],
                                 'percentage': user['percentage']
                             })
-    pd.DataFrame(data).to_csv("aggregated_user.csv", index=False)
+    df = pd.DataFrame(data)
+    df.to_csv("aggregated_user.csv", index=False)
+    print(f"✅ aggregated_user.csv generated with {len(df)} rows.")
+
 
 def extract_aggregated_insurance():
     data = []
@@ -63,7 +69,9 @@ def extract_aggregated_insurance():
                                 'count': tx['paymentInstruments'][0]['count'],
                                 'amount': tx['paymentInstruments'][0]['amount']
                             })
-    pd.DataFrame(data).to_csv("aggregated_insurance.csv", index=False)
+    df = pd.DataFrame(data)
+    df.to_csv("aggregated_insurance.csv", index=False)
+    print(f"✅ aggregated_insurance.csv generated with {len(df)} rows.")
 
 def extract_map(table_name, level):
     data = []
@@ -144,6 +152,50 @@ def extract_top(table_name):
     df.to_csv(f"top_{table_name}.csv", index=False)
     print(f"✅ top_{table_name}.csv generated with {len(df)} rows.")
 
+def extract_top_user():
+    data = []
+    path = os.path.join(BASE_PATH, "top/user/country/india/state")
+
+    for state in os.listdir(path):
+        for year in os.listdir(os.path.join(path, state)):
+            for file in os.listdir(os.path.join(path, state, year)):
+                file_path = os.path.join(path, state, year, file)
+                with open(file_path, 'r') as f:
+                    content = json.load(f)
+                    year_int = int(year)
+                    quarter = int(file.strip('.json').split('.')[0])
+
+                    # Handle districts
+                    districts = content['data'].get('districts', [])
+                    for item in districts:
+                        data.append({
+                            'state': state,
+                            'year': year_int,
+                            'quarter': quarter,
+                            'level': 'district',
+                            'name': item['name'],
+                            'registeredUsers': item['registeredUsers']
+                        })
+
+                    # Handle pincodes
+                    pincodes = content['data'].get('pincodes', [])
+                    for item in pincodes:
+                        data.append({
+                            'state': state,
+                            'year': year_int,
+                            'quarter': quarter,
+                            'level': 'pincode',
+                            'name': item['name'],
+                            'registeredUsers': item['registeredUsers']
+                        })
+
+    df = pd.DataFrame(data)
+    df.to_csv("top_user.csv", index=False)
+    print(f"✅ top_user.csv generated with {len(df)} rows.")
+
+    
+
+
 
 # Run all extraction functions
 extract_aggregated_transaction()
@@ -154,6 +206,7 @@ extract_map("user", "state")
 extract_map("insurance", "state")
 extract_top("transaction")
 extract_top("user")
+extract_top_user()
 extract_top("insurance")
 
 print("✅ All CSV files have been generated.")
